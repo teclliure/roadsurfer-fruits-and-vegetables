@@ -1,0 +1,20 @@
+foods.load:
+  path: /foods
+  methods: POST
+  controller: App\IO\Controller\FoodsController::loadData
+
+foods.fruits.get:
+  path: /foods/fruits
+  methods: GET
+  controller: App\IO\Controller\FruitsController::getFruits
+
+foods.fruits.post:
+  path: /foods/fruits
+  methods: POST
+  controller: App\IO\Controller\FruitsController::postFruits
+  format: json
+
+foods.vegetables.get:
+  path: /foods/vegetables
+  methods: GET
+  controller: App\IO\Controller\VegetablesController::getVegetables

@@ -1,0 +1,6 @@
+services:
+    App\API\Foods\Infrastructure\StorageSystem:
+        public: true
+    App\API\Foods\Application\CreateFruitsAndVegetablesCollectionsHandler:
+        public: true
+        autowire: true
