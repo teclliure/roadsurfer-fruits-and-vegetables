@@ -13,6 +13,7 @@ use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 class StorageSystemInMemoryTest extends KernelTestCase
 {
     private StorageSystemInMemory $storageInMemory;
+
     public function setUp(): void
     {
         self::bootKernel();
@@ -21,7 +22,8 @@ class StorageSystemInMemoryTest extends KernelTestCase
         $this->storageInMemory = new StorageSystemInMemory($filesystemAdapter);
     }
 
-    public function testGetSaveCollection() {
+    public function testGetSaveCollection(): void
+    {
         $key = 'testKey';
         $expected = VegetablesMother::validMultiple();
 

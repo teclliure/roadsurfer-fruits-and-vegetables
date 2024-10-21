@@ -11,7 +11,7 @@ final readonly class Fruit
     public function __construct(
         private int $id,
         private string $name,
-        private int $massQuantity
+        private int $massQuantity,
     ) {
         $this->massConverter = new MassConverter();
     }
@@ -34,13 +34,14 @@ final readonly class Fruit
     public function toArray(string $unit): array
     {
         $massQuantity = $this->massQuantity();
-        if ($unit === 'kg') {
+        if ('kg' === $unit) {
             $massQuantity = $this->massConverter->gramsToKilograms($massQuantity);
         }
+
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'mass' => $massQuantity
+            'mass' => $massQuantity,
         ];
     }
 }

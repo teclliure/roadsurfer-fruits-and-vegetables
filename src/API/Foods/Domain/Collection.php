@@ -4,22 +4,19 @@ declare(strict_types=1);
 
 namespace App\API\Foods\Domain;
 
-use ArrayIterator;
-use Countable;
-use InvalidArgumentException;
-use IteratorAggregate;
+use stdClass;
 
-abstract class Collection implements IteratorAggregate, Countable
+abstract class Collection implements \IteratorAggregate, \Countable
 {
     public function __construct(
-        protected array $items = []
+        protected array $items = [],
     ) {
         if ($this->items) {
             $this->arrayOf($this->type(), $items);
         }
     }
 
-    public function add($item): self
+    public function add(mixed $item): self
     {
         $this->instanceOf($this->type(), $item);
         $this->items[] = $item;
@@ -35,9 +32,9 @@ abstract class Collection implements IteratorAggregate, Countable
         return $this;
     }
 
-    public function getIterator(): ArrayIterator
+    public function getIterator(): \ArrayIterator
     {
-        return new ArrayIterator($this->items());
+        return new \ArrayIterator($this->items());
     }
 
     public function count(): int
@@ -55,16 +52,14 @@ abstract class Collection implements IteratorAggregate, Countable
     private function arrayOf(string $class, array $items): void
     {
         foreach ($items as $item) {
-           $this->instanceOf($class, $item);
+            $this->instanceOf($class, $item);
         }
     }
 
     private function instanceOf(string $class, mixed $item): void
     {
-        if (! $item instanceof $class) {
-            throw new InvalidArgumentException(
-                sprintf('The object <%s> is not an instance of <%s>', $class, $item::class)
-            );
+        if (!$item instanceof $class) {
+            throw new \InvalidArgumentException(sprintf('The object <%s> is not an instance of <%s>', $class, $item::class));
         }
     }
 }

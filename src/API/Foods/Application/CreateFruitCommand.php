@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace App\API\Foods\Application;
 
-final class CreateFruitCommand {
+final class CreateFruitCommand
+{
     public function __construct(
         private int $id,
         private string $name,
-        private int $massQuantity
+        private int $massQuantity,
     ) {
     }
 

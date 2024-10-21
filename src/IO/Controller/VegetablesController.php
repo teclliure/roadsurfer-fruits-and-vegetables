@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\IO\Controller;
 
-use App\API\Foods\Application\GetFruitsHandler;
-use App\API\Foods\Application\GetFruitsQuery;
 use App\API\Foods\Application\GetVegetablesHandler;
 use App\API\Foods\Application\GetVegetablesQuery;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,8 +13,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class VegetablesController extends AbstractController
 {
-
-    public function __construct(private readonly GetVegetablesHandler $handler) {}
+public function __construct(private readonly GetVegetablesHandler $handler)
+    {
+    }
 
     public function getVegetables(Request $request): Response
     {

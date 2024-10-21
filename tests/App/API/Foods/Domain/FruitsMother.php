@@ -6,26 +6,30 @@ namespace App\Tests\App\API\Foods\Domain;
 
 use App\API\Foods\Domain\Fruits;
 
-final class FruitsMother {
-    public static function validMultiple(): Fruits {
+final class FruitsMother
+{
+    public static function validMultiple(): Fruits
+    {
         $fruitsArray = [
             FruitMother::createApple(),
             FruitMother::createBanana(),
-            FruitMother::createAvocado()
+            FruitMother::createAvocado(),
         ];
 
         return new Fruits($fruitsArray);
     }
 
-    public static function validOne(): Fruits {
+    public static function validOne(): Fruits
+    {
         $fruitsArray = [
-            FruitMother::createAvocado()
+            FruitMother::createAvocado(),
         ];
 
         return new Fruits($fruitsArray);
     }
 
-    public static function validEmpty(): Fruits {
+    public static function validEmpty(): Fruits
+    {
         return new Fruits([]);
     }
 }

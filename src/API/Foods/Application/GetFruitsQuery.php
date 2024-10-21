@@ -6,5 +6,7 @@ namespace App\API\Foods\Application;
 
 final class GetFruitsQuery
 {
-    public function __construct() {}
+    public function __construct()
+    {
+    }
 }

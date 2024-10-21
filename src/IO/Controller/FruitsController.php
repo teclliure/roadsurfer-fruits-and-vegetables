@@ -10,7 +10,6 @@ use App\API\Foods\Application\GetFruitsHandler;
 use App\API\Foods\Application\GetFruitsQuery;
 use App\API\Foods\Domain\Fruit;
 use App\API\Foods\Domain\MassConverter;
-use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,7 +17,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class FruitsController extends AbstractController
 {
-
     public function __construct(
         private readonly GetFruitsHandler $getFruitsHandler,
         private readonly CreateFruitHandler $createFruitHandler,
@@ -40,7 +38,7 @@ final class FruitsController extends AbstractController
     {
         try {
             $content = $request->toArray();
-            if ($content['unit'] === 'kg') {
+            if ('kg' === $content['unit']) {
                 $content['quantity'] = $this->massConverter->kilogramsToGrams($content['quantity']);
             }
             $command = new CreateFruitCommand(
@@ -51,7 +49,7 @@ final class FruitsController extends AbstractController
             $this->createFruitHandler->__invoke($command);
 
             return new JsonResponse('', Response::HTTP_CREATED);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             return new JsonResponse($e->getMessage(), Response::HTTP_BAD_REQUEST);
         }
     }

@@ -7,9 +7,11 @@ namespace App\API\Foods\Infrastructure;
 use App\API\Foods\Domain\StorageSystem;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 
-final class StorageSystemInMemory implements StorageSystem
+final readonly class StorageSystemInMemory implements StorageSystem
 {
-    public function __construct(public readonly FilesystemAdapter $storage) {}
+    public function __construct(public FilesystemAdapter $storage)
+    {
+    }
 
     public function save($key, array $content): void
     {
@@ -24,6 +26,7 @@ final class StorageSystemInMemory implements StorageSystem
         if (!$cacheItem->isHit()) {
             return $defaultValue;
         }
+
         return $cacheItem->get();
     }
 }

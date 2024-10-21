@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace App\API\Foods\Application;
 
-final class CreateFruitsAndVegetablesCollectionsCommand {
+final readonly class CreateFruitsAndVegetablesCollectionsCommand
+{
     public function __construct(
-        private readonly array $fruitsAndVegetables
+        private array $fruitsAndVegetables,
     ) {
     }
 

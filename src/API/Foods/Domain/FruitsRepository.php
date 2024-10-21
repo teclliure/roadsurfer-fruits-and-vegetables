@@ -6,7 +6,7 @@ namespace App\API\Foods\Domain;
 
 interface FruitsRepository
 {
-    public function save(Fruits $fruit): void;
+    public function save(Fruits $fruits): void;
 
     public function list(): Fruits;
 }

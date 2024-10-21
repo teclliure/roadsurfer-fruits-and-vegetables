@@ -14,22 +14,26 @@ class FruitsInMemoryRepositoryTest extends TestCase
 {
     private StorageSystem|MockObject $storageSystem;
     private FruitsInMemoryRepository $repository;
+
     public function setUp(): void
     {
         $this->storageSystem = $this->createMock(StorageSystem::class);
         $this->repository = new FruitsInMemoryRepository($this->storageSystem);
     }
-    public function testSaveCollection() {
+
+    public function testSaveCollection(): void
+    {
         $fruits = FruitsMother::validMultiple();
 
         $this->storageSystem->expects($this->once())
             ->method('save')
-            ->with('fruits', (array)$fruits->items());
+            ->with('fruits', $fruits->items());
 
         $this->repository->save($fruits);
     }
 
-    public function testGetCollection() {
+    public function testGetCollection(): void
+    {
         $fruits = FruitsMother::validMultiple();
 
         $this->storageSystem->expects($this->once())

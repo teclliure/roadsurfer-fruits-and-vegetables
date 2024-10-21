@@ -13,14 +13,16 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class FoodsController extends AbstractController
 {
-
-    public function __construct(private readonly CreateFruitsAndVegetablesCollectionsHandler $handler) {}
+    public function __construct(private readonly CreateFruitsAndVegetablesCollectionsHandler $handler)
+    {
+    }
 
     public function loadData(Request $request): Response
     {
         $request = json_decode($request->getContent(), true);
         $command = new CreateFruitsAndVegetablesCollectionsCommand($request);
         $this->handler->__invoke($command);
+
         return new JsonResponse(['message' => 'Data loaded'], Response::HTTP_OK);
     }
 }

@@ -7,19 +7,19 @@ namespace App\API\Foods\Application;
 use App\API\Foods\Domain\Fruit;
 use App\API\Foods\Domain\Fruits;
 use App\API\Foods\Domain\FruitsRepository;
-use App\API\Foods\Domain\Mass;
 use App\API\Foods\Domain\MassConverter;
 use App\API\Foods\Domain\Vegetable;
 use App\API\Foods\Domain\Vegetables;
 use App\API\Foods\Domain\VegetablesRepository;
 
-final class CreateFruitsAndVegetablesCollectionsHandler
+final readonly class CreateFruitsAndVegetablesCollectionsHandler
 {
     public function __construct(
-        private readonly FruitsRepository $fruitsRepository,
-        private readonly VegetablesRepository $vegetablesRepository,
-        private readonly MassConverter $massConverter
-    ) {}
+        private FruitsRepository $fruitsRepository,
+        private VegetablesRepository $vegetablesRepository,
+        private MassConverter $massConverter,
+    ) {
+    }
 
     public function __invoke(CreateFruitsAndVegetablesCollectionsCommand $command): void
     {
@@ -37,20 +37,21 @@ final class CreateFruitsAndVegetablesCollectionsHandler
         $this->vegetablesRepository->save($vegetables);
     }
 
-    private function isFruit($fruitOrVegetable): bool
+    private function isFruit(array $fruitOrVegetable): bool
     {
-        if ($fruitOrVegetable['type'] === 'fruit') {
+        if ('fruit' === $fruitOrVegetable['type']) {
             return true;
         }
 
         return false;
     }
 
-    private function createFruit(mixed $fruitOrVegetable): Fruit
+    private function createFruit(array $fruitOrVegetable): Fruit
     {
-        if ($fruitOrVegetable['unit'] === 'kg') {
+        if ('kg' === $fruitOrVegetable['unit']) {
             $fruitOrVegetable['quantity'] = $this->massConverter->kilogramsToGrams($fruitOrVegetable['quantity']);
         }
+
         return new Fruit(
             $fruitOrVegetable['id'],
             $fruitOrVegetable['name'],
@@ -58,11 +59,12 @@ final class CreateFruitsAndVegetablesCollectionsHandler
         );
     }
 
-    private function createVegetable(mixed $fruitOrVegetable): Vegetable
+    private function createVegetable(array $fruitOrVegetable): Vegetable
     {
-        if ($fruitOrVegetable['unit'] === 'kg') {
+        if ('kg' === $fruitOrVegetable['unit']) {
             $fruitOrVegetable['quantity'] = $this->massConverter->kilogramsToGrams($fruitOrVegetable['quantity']);
         }
+
         return new Vegetable(
             $fruitOrVegetable['id'],
             $fruitOrVegetable['name'],

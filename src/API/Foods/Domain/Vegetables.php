@@ -6,8 +6,8 @@ namespace App\API\Foods\Domain;
 
 final class Vegetables extends Collection
 {
-   public function type(): string
-   {
-       return Vegetable::class;
-   }
+    public function type(): string
+    {
+        return Vegetable::class;
+    }
 }
